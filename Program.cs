@@ -27,7 +27,13 @@ namespace random_number
         //determine if good input and compare user num to compNum
         moves++;
         int playerMove;
-        if (Int32.TryParse(input, out playerMove) && playerMove > 0 && playerMove < 101)
+        if (!Int32.TryParse(input, out playerMove) || playerMove < 0 || playerMove > 101)
+        {
+
+          System.Console.WriteLine(@"
+          **Please provide a valid number from 1-100**");
+        }
+        else
         {
           if (playerMove == compNum)
           {
@@ -35,9 +41,9 @@ namespace random_number
             System.Console.WriteLine($"It took you {moves} moves to best the computer!");
             // ask if they want to play again
             System.Console.WriteLine(@"
-            Would you like to play again? (Y)es or (N)o?");
+            Would you like to play again? Press 'y' to continue.");
             string playAgain = Console.ReadLine();
-            if (playAgain == "n")
+            if (playAgain != "y")
             {
               System.Console.WriteLine("Thanks for playing!");
               return;
@@ -56,12 +62,6 @@ namespace random_number
           {
             System.Console.WriteLine("Lower!");
           }
-
-        }
-        else
-        {
-          System.Console.WriteLine(@"
-          **Please provide a valid number from 1-100**");
         }
 
       }
